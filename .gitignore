@@ -1,0 +1,4 @@
+/docker/mysql/data/
+/src/.env
+/src/vendor/
+/src/node_modules/
