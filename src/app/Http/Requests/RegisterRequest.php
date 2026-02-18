@@ -28,8 +28,6 @@ class RegisterRequest extends FormRequest
             'password.required' => 'パスワードを入力してください',
             'password.min' => 'パスワードは8文字以上で入力してください',
             'password.confirmed' => 'パスワードと一致しません',
-
-            // これはテストケースに明記はありませんが、実運用として日本語にしておくのが安全です
             'email.unique' => 'このメールアドレスは既に登録されています',
         ];
     }

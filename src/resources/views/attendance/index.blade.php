@@ -7,25 +7,20 @@
 @endsection
 
 @section('content')
-    <main class="attendance-index">
+    <div class="attendance-index">
         <div class="attendance-index-inner">
 
-            {{-- ステータス（灰色ピル） --}}
             <p class="attendance-index-status">{{ $statusText }}</p>
 
-            {{-- 日付 --}}
             <p class="attendance-index-date">{{ $now->format('Y年n月j日') }}（{{ $now->isoFormat('ddd') }}）</p>
 
-            {{-- 時刻（大きく） --}}
             <p class="attendance-index-time">{{ $now->format('H:i') }}</p>
 
 
-            {{-- 退勤時メッセージ（Figmaの位置：時刻の下） --}}
             @if (session('message'))
                 <p class="attendance-index-message">{{ session('message') }}</p>
             @endif
 
-            {{-- ボタン --}}
             <form class="attendance-index-form" action="{{ route('attendance.store') }}" method="POST">
                 @csrf
 
@@ -60,5 +55,5 @@
                 </div>
             </form>
         </div>
-    </main>
+    </div>
 @endsection

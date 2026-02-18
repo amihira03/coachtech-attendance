@@ -1,4 +1,3 @@
-{{-- resources/views/attendance/list.blade.php --}}
 @extends('layouts.app')
 
 @section('title', '勤怠一覧')
@@ -8,7 +7,7 @@
 @endsection
 
 @section('content')
-    <main class="attendance-list">
+    <div class="attendance-list">
         <div class="attendance-list-inner">
             <h1 class="attendance-list-title">勤怠一覧</h1>
 
@@ -67,5 +66,5 @@
                 </table>
             </div>
         </div>
-    </main>
+    </div>
 @endsection

@@ -11,8 +11,6 @@ class AttendanceCorrectionRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // ここではバリデーションに集中。
-        // 参照・更新権限の最終チェックは Controller 側（user_id一致）で行います。
         return true;
     }
 
@@ -44,7 +42,6 @@ class AttendanceCorrectionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            // 要件で文言指定があるものは固定
             'note.required' => '備考を記入してください',
             'clock_in_at.required' => '出勤時間を入力してください',
             'clock_out_at.required' => '退勤時間を入力してください',
@@ -56,7 +53,6 @@ class AttendanceCorrectionRequest extends FormRequest
         $validator->after(function (Validator $validator) {
             $attendance = $this->targetAttendance();
             if ($attendance === null) {
-                // Controller側でも firstOrFail するので、ここは安全側のガード
                 return;
             }
 
@@ -65,7 +61,6 @@ class AttendanceCorrectionRequest extends FormRequest
             $clockIn = $this->toDateTimeOrNull($workDate, $this->input('clock_in_at'));
             $clockOut = $this->toDateTimeOrNull($workDate, $this->input('clock_out_at'));
 
-            // 出勤・退勤の前後不整合
             if ($clockIn !== null && $clockOut !== null && $clockOut->lessThanOrEqualTo($clockIn)) {
                 $validator->errors()->add('clock_in_at', '出勤時間もしくは退勤時間が不適切な値です');
                 return;
@@ -76,7 +71,6 @@ class AttendanceCorrectionRequest extends FormRequest
                 return;
             }
 
-            // ★追加：重なりチェック用に「有効な休憩区間」を集める
             $validRanges = [];
 
             foreach ($breaks as $i => $row) {
@@ -90,12 +84,10 @@ class AttendanceCorrectionRequest extends FormRequest
                 $startEmpty = $startRaw === null || $startRaw === '';
                 $endEmpty = $endRaw === null || $endRaw === '';
 
-                // 両方空は無視（最後の空行など）
                 if ($startEmpty && $endEmpty) {
                     continue;
                 }
 
-                // 片方だけ入力は不適切扱い（要件文言に寄せる）
                 if ($startEmpty || $endEmpty) {
                     $validator->errors()->add("breaks.$i.start", '休憩時間が不適切な値です');
                     continue;
@@ -105,18 +97,15 @@ class AttendanceCorrectionRequest extends FormRequest
                 $breakEnd = $this->toDateTimeOrNull($workDate, (string) $endRaw);
 
                 if ($breakStart === null || $breakEnd === null) {
-                    // date_format は rules で担保される想定
                     $validator->errors()->add("breaks.$i.start", '休憩時間が不適切な値です');
                     continue;
                 }
 
-                // 休憩開始 > 休憩終了
                 if ($breakEnd->lessThanOrEqualTo($breakStart)) {
                     $validator->errors()->add("breaks.$i.start", '休憩時間が不適切な値です');
                     continue;
                 }
 
-                // 休憩開始が出勤より前、または退勤より後
                 if ($clockIn !== null && $breakStart->lessThan($clockIn)) {
                     $validator->errors()->add("breaks.$i.start", '休憩時間が不適切な値です');
                     continue;
@@ -127,13 +116,11 @@ class AttendanceCorrectionRequest extends FormRequest
                     continue;
                 }
 
-                // 休憩終了が退勤より後（要件で文言が別）
                 if ($clockOut !== null && $breakEnd->greaterThan($clockOut)) {
                     $validator->errors()->add("breaks.$i.end", '休憩時間もしくは退勤時間が不適切な値です');
                     continue;
                 }
 
-                // ★追加：ここまで通った休憩だけ「有効」として重なりチェック対象に入れる
                 $validRanges[] = [
                     'i' => $i,
                     'start' => $breakStart,
@@ -141,17 +128,13 @@ class AttendanceCorrectionRequest extends FormRequest
                 ];
             }
 
-            // ★追加：休憩同士の重なりチェック
             if (count($validRanges) >= 2) {
-                // 開始時刻順に並べる（入力順が崩れても安全）
                 usort($validRanges, fn($a, $b) => $a['start'] <=> $b['start']);
 
                 for ($k = 0; $k < count($validRanges) - 1; $k++) {
                     $current = $validRanges[$k];
                     $next = $validRanges[$k + 1];
 
-                    // 次の開始が現在の終了より前なら重なり
-                    // ※ end == next.start（ぴったり接する）はOKにする
                     if ($next['start']->lessThan($current['end'])) {
                         $validator->errors()->add("breaks.{$next['i']}.start", '休憩時間が不適切な値です');
                         break;
@@ -181,7 +164,6 @@ class AttendanceCorrectionRequest extends FormRequest
             return null;
         }
 
-        // 'Y-m-d H:i' として比較できる形に変換
         return CarbonImmutable::createFromFormat('Y-m-d H:i', $date . ' ' . $time) ?: null;
     }
 }

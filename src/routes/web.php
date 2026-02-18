@@ -7,12 +7,17 @@ use App\Http\Controllers\AdminStaffController;
 use App\Http\Controllers\CorrectionRequestController;
 
 Route::get('/', function () {
-    return auth()->check() ? redirect('/attendance') : redirect('/login');
+    if (!auth()->check()) {
+        return redirect('/login');
+    }
+    $user = auth()->user();
+
+    if ($user !== null && method_exists($user, 'hasVerifiedEmail') && !$user->hasVerifiedEmail()) {
+        return redirect('/email/verify');
+    }
+    return redirect('/attendance');
 });
 
-/**
- * 一般ユーザー（認証必須）
- */
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance.store');
@@ -27,14 +32,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('stamp_correction_request.list');
 });
 
-// 管理者ログイン画面（表示のみ）
 Route::get('/admin/login', function () {
     return view('admin.auth.login');
 })->name('admin.login');
 
-/**
- * 管理者（認証必須＋管理者権限）
- */
 Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(function () {
     Route::get('/attendance/list', [AdminAttendanceController::class, 'showList'])
         ->name('admin.attendance.list');
@@ -53,9 +54,6 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(functio
         ->name('admin.attendance.staff.csv');
 });
 
-/**
- * 修正申請承認（管理者）
- */
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get(
         '/stamp_correction_request/approve/{attendance_correct_request_id}',

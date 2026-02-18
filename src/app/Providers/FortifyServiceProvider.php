@@ -22,10 +22,8 @@ class FortifyServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // Fortifyが使うLoginRequestを、あなたのLoginRequestに差し替える
         $this->app->bind(FortifyLoginRequestBase::class, LoginRequest::class);
 
-        // ★追加：ログイン成功後の遷移（LoginResponse）を差し替える
         $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
 
         $this->app->singleton(LogoutResponseContract::class, LogoutResponse::class);
@@ -36,9 +34,13 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::createUsersUsing(CreateNewUser::class);
 
         Fortify::verifyEmailView(function () {
-            session(['url.intended' => url('/attendance')]); // ←追加
+            if (! session()->has('url.intended')) {
+                session(['url.intended' => url('/attendance')]);
+            }
+
             return view('auth.verify-notice');
         });
+
         Fortify::registerView(fn() => view('auth.register'));
         Fortify::loginView(fn() => view('auth.login'));
 
@@ -46,7 +48,6 @@ class FortifyServiceProvider extends ServiceProvider
             $user = User::where('email', $request->email)->first();
 
             if ($user && Hash::check($request->password, $user->password)) {
-                // 管理者ログイン画面からのログインなら、管理者権限も必須
                 if ($request->boolean('admin_login') && !$user->is_admin) {
                     throw ValidationException::withMessages([
                         'login' => ['ログイン情報が登録されていません'],

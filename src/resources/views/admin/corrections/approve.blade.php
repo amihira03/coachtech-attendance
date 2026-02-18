@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <main class="admin-approve-detail">
+    <div class="admin-approve-detail">
         <div class="admin-approve-detail-inner">
             <h1 class="admin-approve-detail-title">勤怠詳細</h1>
 
@@ -82,5 +82,5 @@
                 </div>
             </form>
         </div>
-    </main>
+    </div>
 @endsection

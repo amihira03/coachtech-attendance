@@ -10,7 +10,6 @@
     <div class="auth-login">
         <h1 class="auth-login-title">ログイン</h1>
 
-        {{-- ログイン失敗（資格情報不一致） --}}
         @error('login')
             <p class="auth-login-error">{{ $message }}</p>
         @enderror

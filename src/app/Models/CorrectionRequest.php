@@ -9,8 +9,8 @@ class CorrectionRequest extends Model
 {
     use HasFactory;
 
-    public const STATUS_PENDING = 0;  // 承認待ち
-    public const STATUS_APPROVED = 1; // 承認済み
+    public const STATUS_PENDING = 0;
+    public const STATUS_APPROVED = 1;
 
     protected $fillable = [
         'attendance_id',

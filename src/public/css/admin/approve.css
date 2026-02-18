@@ -48,6 +48,7 @@
     font-weight: 700;
     vertical-align: middle;
     border-top: 1px solid #e6e6e6;
+    text-align: center;
 }
 
 .admin-approve-detail-table tr:first-child th,
@@ -59,7 +60,6 @@
 .admin-approve-detail-table th {
     width: 160px;
     color: #737373;
-    text-align: left;
 }
 
 /* td（右列） */

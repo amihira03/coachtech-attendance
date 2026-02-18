@@ -10,7 +10,6 @@
     <div class="auth-login">
         <h1 class="auth-login-title">管理者ログイン</h1>
 
-        {{-- ログイン失敗（資格情報不一致） --}}
         @error('login')
             <p class="auth-login-error">{{ $message }}</p>
         @enderror
@@ -18,7 +17,6 @@
         <form class="auth-login-form" action="{{ route('login') }}" method="POST">
             @csrf
 
-            {{-- 管理者ログイン判定用フラグ --}}
             <input type="hidden" name="admin_login" value="1">
 
             <div class="auth-login-field">

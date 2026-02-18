@@ -3,13 +3,12 @@
 @section('title', 'スタッフ別勤怠一覧')
 
 @section('css')
-    {{-- 一般ユーザー勤怠一覧のCSSを流用（統一感） --}}
     <link rel="stylesheet" href="{{ asset('css/attendance/list.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/staff-attendance-list.css') }}">
 @endsection
 
 @section('content')
-    <main class="attendance-list">
+    <div class="attendance-list">
         <div class="attendance-list-inner">
             <h1 class="attendance-list-title">{{ $user->name }}さんの勤怠</h1>
 
@@ -68,7 +67,6 @@
                 </table>
             </div>
 
-            {{-- CSV出力（右下） --}}
             <div class="admin-staff-attendance-csv">
                 <a class="admin-staff-attendance-csv-btn"
                     href="{{ route('admin.attendance.staff.csv', ['id' => $user->id, 'month' => request('month', '')]) }}">
@@ -76,5 +74,5 @@
                 </a>
             </div>
         </div>
-    </main>
+    </div>
 @endsection

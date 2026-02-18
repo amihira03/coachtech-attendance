@@ -1,4 +1,3 @@
-{{-- resources/views/corrections/list.blade.php --}}
 @extends('layouts.app')
 
 @section('title', '申請一覧')
@@ -15,11 +14,10 @@
         $isApprovedTab = ($tab ?? 'pending') === 'approved';
     @endphp
 
-    <main class="corrections-list">
+    <div class="corrections-list">
         <div class="corrections-list-inner">
             <h1 class="corrections-list-title">申請一覧</h1>
 
-            {{-- tabs --}}
             <nav class="corrections-list-tabs">
                 <a class="corrections-list-tab {{ $isPendingTab ? 'corrections-list-tab--active' : '' }}"
                     href="{{ $baseUrl }}?tab=pending">
@@ -31,7 +29,6 @@
                 </a>
             </nav>
 
-            {{-- table --}}
             <div class="corrections-list-table-wrap">
                 @if (!empty($rows))
                     <table class="corrections-list-table">
@@ -80,5 +77,5 @@
                 @endif
             </div>
         </div>
-    </main>
+    </div>
 @endsection

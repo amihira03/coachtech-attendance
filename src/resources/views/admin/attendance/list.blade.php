@@ -7,12 +7,10 @@
 @endsection
 
 @section('content')
-    <main class="admin-list">
+    <div class="admin-list">
         <div class="admin-list-inner">
-            {{-- タイトル --}}
             <h1 class="admin-list-title">{{ $displayDate->format('Y年n月j日') }}の勤怠</h1>
 
-            {{-- 日付ナビ --}}
             <div class="admin-list-daily-nav">
                 <a class="admin-list-daily-btn"
                     href="{{ url('/admin/attendance/list') }}?date={{ $prevDate->toDateString() }}">
@@ -32,7 +30,6 @@
                 </a>
             </div>
 
-            {{-- テーブル --}}
             <div class="admin-list-table-wrap">
                 <table class="admin-list-table">
                     <thead>
@@ -72,5 +69,5 @@
                 </table>
             </div>
         </div>
-    </main>
+    </div>
 @endsection

@@ -23,7 +23,6 @@
             @auth
                 <nav class="header-nav">
                     @if (request()->routeIs('attendance.index') && ($isFinished ?? false))
-                        {{-- 退勤済み（勤怠登録画面）専用表示 --}}
                         <a class="header-link" href="{{ route('attendance.list') }}">
                             今月の出勤一覧
                         </a>
@@ -31,7 +30,6 @@
                             申請一覧
                         </a>
                     @else
-                        {{-- 通常表示 --}}
                         <a class="header-link" href="{{ route('attendance.index') }}">勤怠</a>
                         <a class="header-link" href="{{ route('attendance.list') }}">勤怠一覧</a>
                         <a class="header-link" href="{{ route('stamp_correction_request.list') }}">申請</a>

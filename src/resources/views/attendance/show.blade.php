@@ -1,4 +1,3 @@
-{{-- resources/views/attendance/show.blade.php --}}
 @extends('layouts.app')
 
 @section('title', '勤怠詳細')
@@ -8,7 +7,7 @@
 @endsection
 
 @section('content')
-    <main class="attendance-detail">
+    <div class="attendance-detail">
         <div class="attendance-detail-inner">
             <h1 class="attendance-detail-title">勤怠詳細</h1>
 
@@ -72,7 +71,6 @@
                 </p>
             @else
                 @php
-                    // Controllerが作った表示用breakRows（start/end）を、フォーム用（breaks[*][start|end]）の形に整形
                     $defaultBreaks = [];
                     foreach ($display['breakRows'] ?? [] as $row) {
                         $defaultBreaks[] = [
@@ -138,7 +136,6 @@
                                             @endforeach
                                         </div>
 
-                                        {{-- 休憩配列のエラー（FormRequestで合わせます） --}}
                                         @error('breaks')
                                             <p class="attendance-detail-error">{{ $message }}</p>
                                         @enderror
@@ -171,5 +168,5 @@
                 </form>
             @endif
         </div>
-    </main>
+    </div>
 @endsection

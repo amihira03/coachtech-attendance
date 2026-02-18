@@ -7,18 +7,15 @@
 @endsection
 
 @section('content')
-    <main class="admin-attendance-detail">
+    <div class="admin-attendance-detail">
         <div class="admin-attendance-detail-inner">
             <h1 class="admin-attendance-detail-title">勤怠詳細</h1>
 
             @php
-                // 出勤・退勤・備考（Controllerの表示値をベースに old() 優先）
                 $clockInOld = old('clock_in_at', $displayClockIn ?? '');
                 $clockOutOld = old('clock_out_at', $displayClockOut ?? '');
                 $noteOld = old('note', $displayNote ?? '');
 
-                // 休憩：Controllerの表示用（id/start/end）をフォーム用に整形し、
-                //      さらに「追加用の空行」を常に1行足す
                 $defaultBreaks = [];
                 foreach ($displayBreaks ?? [] as $row) {
                     $defaultBreaks[] = [
@@ -28,7 +25,6 @@
                     ];
                 }
 
-                // ★常に追加用の空行を1つ足す（管理者は追加できる）
                 $defaultBreaks[] = ['id' => null, 'start' => '', 'end' => ''];
 
                 $breakInputs = old('breaks', $defaultBreaks);
@@ -128,5 +124,5 @@
                 </div>
             </form>
         </div>
-    </main>
+    </div>
 @endsection
