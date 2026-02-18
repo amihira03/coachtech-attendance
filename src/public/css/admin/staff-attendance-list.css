@@ -1,0 +1,52 @@
+/* public/css/admin/attendance/staff.css */
+
+/* CSV出力ボタンの配置（テーブルの下・右寄せ） */
+.admin-staff-attendance-csv {
+    margin-top: 18px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* ボタン本体（Figmaの黒ボタン想定） */
+.admin-staff-attendance-csv-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 160px;
+    height: 44px;
+
+    background: #000;
+    color: #fff;
+
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+
+    border-radius: 4px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+}
+
+/* hover（任意：一般側と同様に軽く反応） */
+.admin-staff-attendance-csv-btn:hover {
+    opacity: 0.9;
+}
+
+/* タブレット (768-850px) */
+@media (min-width: 768px) and (max-width: 850px) {
+    .admin-staff-attendance-csv-btn {
+        width: 160px;
+        height: 44px;
+        font-size: 14px;
+    }
+}
+
+/* PC (1400-1540px) */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .admin-staff-attendance-csv-btn {
+        width: 170px;
+        height: 46px;
+        font-size: 15px;
+    }
+}

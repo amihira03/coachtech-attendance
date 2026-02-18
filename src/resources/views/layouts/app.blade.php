@@ -9,26 +9,37 @@
     <title>@yield('title', 'COACHTECH Attendance')</title>
 
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/layouts/header.css') }}">
     @yield('css')
 </head>
 
 <body>
     <header class="header">
-        <div class="header__inner">
-            <a class="header__logo" href="{{ route('attendance.index') }}">
+        <div class="header-inner">
+            <a class="header-logo" href="{{ route('attendance.index') }}">
                 <img src="{{ asset('images/logo.png') }}" alt="COACHTECH">
             </a>
 
             @auth
-                <nav class="header__nav">
-                    <a class="header__link" href="{{ route('attendance.index') }}">勤怠</a>
-                    <a class="header__link" href="{{ route('attendance.list') }}">勤怠一覧</a>
-                    <a class="header__link" href="{{ route('stamp_correction_request.list') }}">申請</a>
+                <nav class="header-nav">
+                    @if (request()->routeIs('attendance.index') && ($isFinished ?? false))
+                        {{-- 退勤済み（勤怠登録画面）専用表示 --}}
+                        <a class="header-link" href="{{ route('attendance.list') }}">
+                            今月の出勤一覧
+                        </a>
+                        <a class="header-link" href="{{ route('stamp_correction_request.list') }}">
+                            申請一覧
+                        </a>
+                    @else
+                        {{-- 通常表示 --}}
+                        <a class="header-link" href="{{ route('attendance.index') }}">勤怠</a>
+                        <a class="header-link" href="{{ route('attendance.list') }}">勤怠一覧</a>
+                        <a class="header-link" href="{{ route('stamp_correction_request.list') }}">申請</a>
+                    @endif
 
-                    <form class="header__logout" action="{{ route('logout') }}" method="POST">
+                    <form class="header-logout" action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button class="header__button" type="submit">ログアウト</button>
+                        <button class="header-button" type="submit">ログアウト</button>
                     </form>
                 </nav>
             @endauth
@@ -38,8 +49,6 @@
     <main class="main">
         @yield('content')
     </main>
-
-    @yield('js')
 </body>
 
 </html>

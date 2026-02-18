@@ -1,0 +1,138 @@
+/* public/css/attendance/index.css */
+
+/* 画面全体：Figmaの薄いグレー＋中央寄せ */
+.attendance-index {
+    background: #f2f2f2;
+    min-height: calc(100vh - 80px); /* ヘッダー分を差し引き（必要なら調整） */
+    padding: 0 16px;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center; /* 縦方向中央 */
+    justify-content: center; /* 横方向中央 */
+}
+
+/* 中央のブロック */
+.attendance-index-inner {
+    width: 100%;
+    max-width: 760px;
+    text-align: center;
+
+    /* “真ん中よりちょい上”に寄せたい場合の微調整 */
+    transform: translateY(-20px);
+}
+
+/* ステータス（灰色ピル） */
+.attendance-index-status {
+    display: inline-block;
+    margin: 0 0 18px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: #d9d9d9;
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+}
+
+/* 日付 */
+.attendance-index-date {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+}
+
+/* 時刻（大きく） */
+.attendance-index-time {
+    margin: 0; /* いったん0にしてズレを無くす */
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #000;
+}
+
+/* 退勤メッセージ */
+.attendance-index-message {
+    margin: 32px 0 0; /* 時刻からの距離（Figmaっぽく） */
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+}
+
+/* ボタン群 */
+.attendance-index-form {
+    margin: 0;
+}
+
+.attendance-index-actions {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 28px;
+}
+
+/* ボタン共通 */
+.attendance-index-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.attendance-index-button--primary {
+    border: 1px solid #000;
+    background: #000;
+    color: #fff;
+}
+
+.attendance-index-button--ghost {
+    border: 1px solid #cfcfcf;
+    background: #fff;
+    color: #000;
+}
+
+.attendance-index-button:hover {
+    opacity: 0.9;
+}
+
+/* タブレット (768-850px) */
+@media (min-width: 768px) and (max-width: 850px) {
+    .attendance-index-inner {
+        max-width: 740px;
+        transform: translateY(-16px);
+    }
+
+    .attendance-index-time {
+        font-size: 54px;
+    }
+
+    .attendance-index-button {
+        width: 220px;
+        height: 52px;
+        font-size: 15px;
+    }
+}
+
+/* PC (1400-1540px) */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .attendance-index-inner {
+        max-width: 820px;
+        transform: translateY(-22px);
+    }
+
+    .attendance-index-time {
+        font-size: 60px;
+    }
+
+    .attendance-index-button {
+        width: 260px;
+        height: 56px;
+        font-size: 16px;
+    }
+}

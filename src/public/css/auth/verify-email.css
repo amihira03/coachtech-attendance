@@ -1,0 +1,104 @@
+/* public/css/auth/verify-email.css */
+
+.verify-notice {
+    padding: 70px 16px 110px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+
+    background: #ffffff;
+}
+
+/* 本文 */
+.verify-notice-text {
+    margin: 0;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.8;
+    color: #000000;
+}
+
+/* ボタン */
+.verify-notice-button-wrap {
+    margin: 0;
+}
+
+.verify-notice-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 240px;
+    height: 56px;
+    border-radius: 8px;
+
+    background: #d9d9d9;
+    border: 1px solid #000000;
+
+    color: #000000;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+
+    transition:
+        opacity 0.15s ease,
+        transform 0.05s ease;
+}
+
+.verify-notice-button:hover {
+    opacity: 0.9;
+}
+
+.verify-notice-button:active {
+    transform: translateY(1px);
+}
+
+/* 再送リンク（ボタン風ではなく青文字） */
+.verify-notice-resend {
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    color: #1a73e8;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.verify-notice-resend:hover {
+    opacity: 0.85;
+}
+
+/* 再送完了メッセージ */
+.verify-notice-status {
+    margin: 0;
+    font-size: 14px;
+    color: #d33;
+    text-align: center;
+}
+
+/* タブレット（768-850px） */
+@media (min-width: 768px) and (max-width: 850px) {
+    .verify-notice {
+        padding: 40px 24px 80px;
+        gap: 28px;
+    }
+
+    .verify-notice-text {
+        font-size: 18px;
+    }
+}
+
+/* PC（1400-1540px） */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .verify-notice {
+        padding: 48px 24px 96px;
+        gap: 28px;
+    }
+}

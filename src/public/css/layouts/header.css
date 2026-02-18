@@ -1,0 +1,125 @@
+/* =========================
+   Header (User / Figma)
+   ========================= */
+
+.header {
+    height: 80px;
+    background: #000;
+}
+
+.header-inner {
+    height: 80px;
+    width: 100%;
+    max-width: 1540px; /* Figma幅に寄せる場合は1512pxでもOK */
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* =========================
+   Logo
+   ========================= */
+
+.header-logo {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    line-height: 1;
+}
+
+.header-logo img {
+    display: block;
+    height: 28px;
+    width: auto;
+}
+
+/* =========================
+   Right Navigation
+   ========================= */
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+/* Link */
+.header-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+}
+
+.header-link:hover {
+    opacity: 0.85;
+}
+
+/* Logout */
+.header-logout {
+    margin: 0;
+}
+
+.header-button {
+    background: transparent;
+    border: none;
+    padding: 0;
+
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.header-button:hover {
+    opacity: 0.85;
+}
+
+/* =========================
+   Tablet (768-850px)
+   ========================= */
+
+@media (min-width: 768px) and (max-width: 850px) {
+    .header-inner {
+        padding: 0 20px;
+    }
+
+    .header-nav {
+        gap: 24px;
+    }
+
+    .header-link,
+    .header-button {
+        font-size: 14px;
+    }
+
+    .header-logo img {
+        height: 26px;
+    }
+}
+
+/* =========================
+   PC (1400-1540px)
+   ========================= */
+
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .header-inner {
+        padding: 0 32px;
+    }
+
+    .header-link,
+    .header-button {
+        font-size: 16px;
+    }
+}

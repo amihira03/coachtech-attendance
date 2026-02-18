@@ -1,0 +1,159 @@
+/* public/css/attendance/list.css */
+
+/* 画面全体：index.cssと同じ薄いグレー＋中央寄せ */
+.attendance-list {
+    background: #f2f2f2;
+    min-height: calc(100vh - 80px);
+    padding: 32px 16px 64px;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+}
+
+/* 中央のブロック */
+.attendance-list-inner {
+    width: 100%;
+    max-width: 760px;
+}
+
+/* タイトル */
+.attendance-list-title {
+    margin: 0 0 16px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    padding-left: 12px;
+    border-left: 4px solid #000;
+}
+
+/* 月ナビ（白い帯） */
+.attendance-list-month-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 10px 12px;
+    background: #fff;
+    border-radius: 6px;
+    box-sizing: border-box;
+
+    margin-bottom: 18px;
+}
+
+.attendance-list-month-btn {
+    color: #737373;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.attendance-list-calendar-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.attendance-list-arrow-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.attendance-list-month-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.attendance-list-month-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+}
+
+/* テーブル枠（白いカード） */
+.attendance-list-table-wrap {
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* テーブル */
+.attendance-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.attendance-list-table th,
+.attendance-list-table td {
+    padding: 10px 8px;
+    text-align: center;
+    border-top: 1px solid #e6e6e6;
+    font-size: 14px;
+    color: #737373;
+    font-weight: 700;
+}
+
+.attendance-list-table thead th {
+    border-top: none;
+    background: #f8f8f8;
+}
+
+/* 詳細 */
+.attendance-list-detail {
+    color: #000;
+    text-decoration: none;
+}
+
+/* 無効（文字色だけグレー、hover無し、クリック不可） */
+.attendance-list-detail--disabled {
+    color: #bdbdbd;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* タブレット (768-850px) */
+@media (min-width: 768px) and (max-width: 850px) {
+    .attendance-list-inner {
+        max-width: 740px;
+    }
+
+    .attendance-list-title {
+        font-size: 20px;
+    }
+
+    .attendance-list-month-label {
+        font-size: 16px;
+    }
+
+    .attendance-list-table th,
+    .attendance-list-table td {
+        padding: 12px 8px;
+        font-size: 14px;
+    }
+}
+
+/* PC (1400-1540px) */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .attendance-list-inner {
+        max-width: 820px;
+    }
+
+    .attendance-list-title {
+        font-size: 22px;
+    }
+
+    .attendance-list-month-label {
+        font-size: 18px;
+    }
+
+    .attendance-list-table th,
+    .attendance-list-table td {
+        padding: 12px 10px;
+        font-size: 15px;
+    }
+}
