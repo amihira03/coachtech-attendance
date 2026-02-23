@@ -96,7 +96,6 @@
                     @csrf
 
                     @if (!$attendanceId)
-                        {{-- ✅ 未打刻日（date指定）申請用 --}}
                         <input type="hidden" name="date" value="{{ $targetDate ?? '' }}">
                     @endif
                     <div class="attendance-detail-table-wrap">
