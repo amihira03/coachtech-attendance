@@ -1,3 +1,4 @@
+{{-- resources/views/attendance/list.blade.php --}}
 @extends('layouts.app')
 
 @section('title', '勤怠一覧')
@@ -55,9 +56,10 @@
                                             詳細
                                         </a>
                                     @else
-                                        <span class="attendance-list-detail attendance-list-detail--disabled">
+                                        <a class="attendance-list-detail"
+                                            href="{{ route('attendance.detail.by_date', ['date' => $row['workDate']]) }}">
                                             詳細
-                                        </span>
+                                        </a>
                                     @endif
                                 </td>
                             </tr>

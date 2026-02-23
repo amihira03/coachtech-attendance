@@ -78,6 +78,9 @@
                             'end' => $row['end'] ?? '',
                         ];
                     }
+                    if (count($defaultBreaks) === 0) {
+                        $defaultBreaks[] = ['start' => '', 'end' => ''];
+                    }
 
                     $breakInputs = old('breaks', $defaultBreaks);
                     $clockInOld = old('clock_in_at', $display['clockIn'] ?? '');
@@ -86,9 +89,16 @@
                 @endphp
 
                 <form class="attendance-detail-form"
-                    action="{{ route('attendance.detail.store', ['id' => $attendanceId]) }}" method="POST">
+                    action="{{ $attendanceId
+                        ? route('attendance.detail.store', ['id' => $attendanceId])
+                        : route('attendance.detail.by_date.store') }}"
+                    method="POST">
                     @csrf
 
+                    @if (!$attendanceId)
+                        {{-- ✅ 未打刻日（date指定）申請用 --}}
+                        <input type="hidden" name="date" value="{{ $targetDate ?? '' }}">
+                    @endif
                     <div class="attendance-detail-table-wrap">
                         <table class="attendance-detail-table">
                             <tbody>

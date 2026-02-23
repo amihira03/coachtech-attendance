@@ -52,13 +52,12 @@
                                 <td>{{ $row['breakTotal'] }}</td>
                                 <td>{{ $row['workTotal'] }}</td>
                                 <td>
-                                    @if ($row['attendanceId'])
+                                    @if (!empty($row['attendanceId']))
                                         <a class="attendance-list-detail"
-                                            href="{{ route($detailRouteName, ['id' => $row['attendanceId']]) }}">
-                                            詳細
-                                        </a>
+                                            href="{{ route('admin.attendance.show', ['id' => $row['attendanceId']]) }}">詳細</a>
                                     @else
-                                        <span class="attendance-list-detail attendance-list-detail--disabled">詳細</span>
+                                        <a class="attendance-list-detail"
+                                            href="{{ route('admin.attendance.detail_by_date', ['user_id' => $user->id, 'date' => $row['workDate']]) }}">詳細</a>
                                     @endif
                                 </td>
                             </tr>

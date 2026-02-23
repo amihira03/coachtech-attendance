@@ -24,6 +24,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/attendance/list', [AttendanceController::class, 'showList'])->name('attendance.list');
 
+    Route::get('/attendance/detail', [AttendanceController::class, 'showByDate'])
+        ->name('attendance.detail.by_date');
+    Route::post('/attendance/detail', [AttendanceController::class, 'storeByDate'])
+        ->name('attendance.detail.by_date.store');
     Route::get('/attendance/detail/{id}', [AttendanceController::class, 'show'])->name('attendance.detail');
     Route::post('/attendance/detail/{id}', [AttendanceController::class, 'storeDetail'])
         ->name('attendance.detail.store');
@@ -40,6 +44,11 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(functio
     Route::get('/attendance/list', [AdminAttendanceController::class, 'showList'])
         ->name('admin.attendance.list');
 
+
+    Route::get('/attendance/detail', [AdminAttendanceController::class, 'showByDate'])
+        ->name('admin.attendance.detail_by_date');
+    Route::post('/attendance/detail', [AdminAttendanceController::class, 'storeByDate'])
+        ->name('admin.attendance.detail_by_date.store');
     Route::get('/attendance/{id}', [AdminAttendanceController::class, 'show'])
         ->name('admin.attendance.show');
     Route::post('/attendance/{id}', [AdminAttendanceController::class, 'update'])

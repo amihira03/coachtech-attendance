@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->date('work_date');
 
-            $table->dateTime('clock_in_at');
+            $table->dateTime('clock_in_at')->nullable();
             $table->dateTime('clock_out_at')->nullable();
 
             $table->unsignedTinyInteger('status')->default(0);

@@ -12,39 +12,39 @@
             <h1 class="admin-attendance-detail-title">勤怠詳細</h1>
 
             @php
+                $isByDate = $isByDate ?? false;
                 $clockInOld = old('clock_in_at', $displayClockIn ?? '');
                 $clockOutOld = old('clock_out_at', $displayClockOut ?? '');
                 $noteOld = old('note', $displayNote ?? '');
-
-                $defaultBreaks = [];
-                foreach ($displayBreaks ?? [] as $row) {
-                    $defaultBreaks[] = [
-                        'id' => $row['id'] ?? null,
-                        'start' => $row['start'] ?? '',
-                        'end' => $row['end'] ?? '',
-                    ];
-                }
-
-                $defaultBreaks[] = ['id' => null, 'start' => '', 'end' => ''];
-
-                $breakInputs = old('breaks', $defaultBreaks);
+                $breakInputs = old('breaks', $displayBreaks ?? []);
             @endphp
 
-            <form class="admin-attendance-detail-form"
-                action="{{ route('admin.attendance.update', ['id' => $attendance->id]) }}" method="POST">
+            <form class="admin-attendance-detail-form" method="POST"
+                action="{{ $isByDate
+                    ? route('admin.attendance.detail_by_date.store')
+                    : route('admin.attendance.update', ['id' => $attendance->id]) }}">
                 @csrf
+
+                @if ($isByDate)
+                    <input type="hidden" name="user_id" value="{{ $targetUser->id }}">
+                    <input type="hidden" name="date" value="{{ $targetDate }}">
+                @endif
 
                 <div class="admin-attendance-detail-table-wrap">
                     <table class="admin-attendance-detail-table">
                         <tbody>
                             <tr>
                                 <th class="admin-attendance-detail-th">名前</th>
-                                <td class="admin-attendance-detail-td">{{ $attendance->user->name }}</td>
+                                <td class="admin-attendance-detail-td">
+                                    {{ $isByDate ? $targetUser->name : $attendance->user->name }}
+                                </td>
                             </tr>
 
                             <tr>
                                 <th class="admin-attendance-detail-th">日付</th>
-                                <td class="admin-attendance-detail-td">{{ $attendance->work_date->format('Y年n月j日') }}</td>
+                                <td class="admin-attendance-detail-td">
+                                    {{ $isByDate ? \Carbon\CarbonImmutable::parse($targetDate)->format('Y年n月j日') : $attendance->work_date->format('Y年n月j日') }}
+                                </td>
                             </tr>
 
                             <tr>

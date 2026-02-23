@@ -1,7 +1,3 @@
-/* =========================
-   Header (User / Figma)
-   ========================= */
-
 .header {
     height: 80px;
     background: #000;
@@ -10,7 +6,7 @@
 .header-inner {
     height: 80px;
     width: 100%;
-    max-width: 1540px; /* Figma幅に寄せる場合は1512pxでもOK */
+    max-width: 1540px;
     margin: 0 auto;
     padding: 0 24px;
     box-sizing: border-box;
@@ -19,10 +15,6 @@
     align-items: center;
     justify-content: space-between;
 }
-
-/* =========================
-   Logo
-   ========================= */
 
 .header-logo {
     display: inline-flex;
@@ -37,17 +29,12 @@
     width: auto;
 }
 
-/* =========================
-   Right Navigation
-   ========================= */
-
 .header-nav {
     display: flex;
     align-items: center;
     gap: 40px;
 }
 
-/* Link */
 .header-link {
     color: #fff;
     text-decoration: none;
@@ -62,7 +49,6 @@
     opacity: 0.85;
 }
 
-/* Logout */
 .header-logout {
     margin: 0;
 }
@@ -86,10 +72,6 @@
     opacity: 0.85;
 }
 
-/* =========================
-   Tablet (768-850px)
-   ========================= */
-
 @media (min-width: 768px) and (max-width: 850px) {
     .header-inner {
         padding: 0 20px;
@@ -108,10 +90,6 @@
         height: 26px;
     }
 }
-
-/* =========================
-   PC (1400-1540px)
-   ========================= */
 
 @media (min-width: 1400px) and (max-width: 1540px) {
     .header-inner {
