@@ -13,10 +13,41 @@
 
             @php
                 $isByDate = $isByDate ?? false;
+
                 $clockInOld = old('clock_in_at', $displayClockIn ?? '');
                 $clockOutOld = old('clock_out_at', $displayClockOut ?? '');
                 $noteOld = old('note', $displayNote ?? '');
-                $breakInputs = old('breaks', $displayBreaks ?? []);
+
+                $defaultBreaks = [];
+                foreach ($displayBreaks ?? [] as $row) {
+                    $defaultBreaks[] = [
+                        'id' => $row['id'] ?? '',
+                        'start' => $row['start'] ?? '',
+                        'end' => $row['end'] ?? '',
+                    ];
+                }
+
+                $needsExtraRow = true;
+
+                if (count($defaultBreaks) === 0) {
+                    $needsExtraRow = true;
+                } else {
+                    $last = $defaultBreaks[count($defaultBreaks) - 1];
+
+                    $lastId = (string) ($last['id'] ?? '');
+                    $lastStart = (string) ($last['start'] ?? '');
+                    $lastEnd = (string) ($last['end'] ?? '');
+
+                    if ($lastId === '' && $lastStart === '' && $lastEnd === '') {
+                        $needsExtraRow = false;
+                    }
+                }
+
+                if ($needsExtraRow) {
+                    $defaultBreaks[] = ['id' => '', 'start' => '', 'end' => ''];
+                }
+
+                $breakInputs = old('breaks', $defaultBreaks);
             @endphp
 
             <form class="admin-attendance-detail-form" method="POST"
