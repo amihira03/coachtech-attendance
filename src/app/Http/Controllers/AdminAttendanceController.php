@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminAttendanceRequest;
+use App\Models\User;
 use App\Models\Attendance;
 use App\Models\CorrectionRequest;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use App\Services\AdminAttendance\AdminDailyListService;
 use App\Services\AdminAttendance\AdminAttendanceUpdateService;
@@ -26,10 +28,78 @@ class AdminAttendanceController extends Controller
 
         $prevDate = $displayDate->subDay();
         $nextDate = $displayDate->addDay();
-
         $rows = $service->buildRows($displayDate);
 
         return view('admin.attendance.list', compact('displayDate', 'prevDate', 'nextDate', 'rows'));
+    }
+
+    public function showByDate(Request $request): View
+    {
+        $userId = (string) $request->query('user_id', '');
+        $date = (string) $request->query('date', '');
+
+        if (!ctype_digit($userId) || preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) !== 1) {
+            abort(404);
+        }
+
+        $user = User::query()->findOrFail((int) $userId);
+
+        $attendance = Attendance::query()
+            ->with([
+                'user',
+                'breaks' => fn($q) => $q->orderBy('id'),
+            ])
+            ->where('user_id', $user->id)
+            ->whereDate('work_date', $date)
+            ->first();
+
+        if ($attendance !== null) {
+            return $this->show($attendance->id);
+        }
+
+        return view('admin.attendance.show', [
+            'attendance' => null,
+            'displayClockIn' => '',
+            'displayClockOut' => '',
+            'displayNote' => '',
+            'displayBreaks' => [['id' => null, 'start' => '', 'end' => ''],],
+            'hasPendingRequest' => false,
+            'targetUser' => $user,
+            'targetDate' => $date,
+            'isByDate' => true,
+        ]);
+    }
+
+    public function storeByDate(
+        AdminAttendanceRequest $request,
+        AdminAttendanceUpdateService $service
+    ): RedirectResponse {
+        $userId = (string) $request->input('user_id', '');
+        $date = (string) $request->input('date', '');
+
+        if (!ctype_digit($userId) || preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) !== 1) {
+            abort(404);
+        }
+
+        $validated = $request->validated();
+
+        $attendance = DB::transaction(function () use ($userId, $date, $validated, $service) {
+            $attendance = Attendance::query()->firstOrCreate(
+                [
+                    'user_id' => (int) $userId,
+                    'work_date' => $date,
+                ],
+                [
+                    'status' => Attendance::STATUS_OFF_DUTY,
+                ]
+            );
+
+            return $service->handle($attendance->id, $validated);
+        });
+
+        return redirect()->route('admin.attendance.list', [
+            'date' => CarbonImmutable::parse($attendance->work_date)->toDateString(),
+        ]);
     }
 
     public function show(int $id): View
@@ -51,7 +121,6 @@ class AdminAttendanceController extends Controller
         $displayClockIn = $this->toTimeString($pending?->requested_clock_in_at ?? $attendance->clock_in_at);
         $displayClockOut = $this->toTimeString($pending?->requested_clock_out_at ?? $attendance->clock_out_at);
         $displayNote = (string) ($pending?->requested_note ?? $attendance->note ?? '');
-
         $baseBreaks = $attendance->breaks ?? collect();
         $reqBreaks = $pending?->breaks ?? collect();
 
@@ -87,7 +156,6 @@ class AdminAttendanceController extends Controller
         ]);
     }
 
-
     public function update(
         AdminAttendanceRequest $request,
         int $id,
@@ -116,7 +184,6 @@ class AdminAttendanceController extends Controller
     public function showStaffList(Request $request, int $id, AdminStaffMonthlyService $service): View
     {
         $month = (string) $request->query('month', '');
-
         $data = $service->buildViewData($id, $month);
 
         return view('admin.attendance.staff', $data);

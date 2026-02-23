@@ -1,7 +1,3 @@
-/* =========================
-   Header (Admin / Figma)
-   ========================= */
-
 .header {
     height: 80px;
     background: #000;
@@ -10,7 +6,7 @@
 .header-inner {
     height: 80px;
     width: 100%;
-    max-width: 1540px; /* PC(1400-1540px)想定で広め */
+    max-width: 1540px;
     margin: 0 auto;
     padding: 0 24px;
     box-sizing: border-box;
@@ -21,7 +17,6 @@
     gap: 24px;
 }
 
-/* ロゴ */
 .header-logo {
     display: inline-flex;
     align-items: center;
@@ -31,18 +26,16 @@
 
 .header-logo img {
     display: block;
-    height: 28px; /* 見た目が近いサイズ */
+    height: 28px;
     width: auto;
 }
 
-/* 右側ナビ */
 .header-nav {
     display: flex;
     align-items: center;
     gap: 40px;
 }
 
-/* 共通リンク */
 .header-link {
     color: #fff;
     text-decoration: none;
@@ -56,7 +49,6 @@
     opacity: 0.85;
 }
 
-/* ログアウトフォーム（ボタンをリンク風に） */
 .header-logout {
     margin: 0;
 }
@@ -79,7 +71,6 @@
     opacity: 0.85;
 }
 
-/* タブレット (768-850px) */
 @media (min-width: 768px) and (max-width: 850px) {
     .header-inner {
         padding: 0 20px;
@@ -100,7 +91,6 @@
     }
 }
 
-/* PC (1400-1540px) */
 @media (min-width: 1400px) and (max-width: 1540px) {
     .header-inner {
         padding: 0 32px;

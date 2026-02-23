@@ -116,6 +116,7 @@ class MonthlyAttendanceService
                 'breakTotal' => $breakTotal,
                 'workTotal' => $workTotal,
                 'attendanceId' => $attendanceId,
+                'workDate' => $date,
             ];
 
             $cursor = $cursor->addDay();

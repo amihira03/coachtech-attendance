@@ -1,28 +1,22 @@
-/* public/css/attendance/index.css */
-
-/* 画面全体：Figmaの薄いグレー＋中央寄せ */
 .attendance-index {
     background: #f2f2f2;
-    min-height: calc(100vh - 80px); /* ヘッダー分を差し引き（必要なら調整） */
+    min-height: calc(100vh - 80px);
     padding: 0 16px;
     box-sizing: border-box;
 
     display: flex;
-    align-items: center; /* 縦方向中央 */
-    justify-content: center; /* 横方向中央 */
+    align-items: center;
+    justify-content: center;
 }
 
-/* 中央のブロック */
 .attendance-index-inner {
     width: 100%;
     max-width: 760px;
     text-align: center;
 
-    /* “真ん中よりちょい上”に寄せたい場合の微調整 */
     transform: translateY(-20px);
 }
 
-/* ステータス（灰色ピル） */
 .attendance-index-status {
     display: inline-block;
     margin: 0 0 18px;
@@ -34,7 +28,6 @@
     color: #000;
 }
 
-/* 日付 */
 .attendance-index-date {
     margin: 0 0 10px;
     font-size: 18px;
@@ -42,24 +35,21 @@
     color: #000;
 }
 
-/* 時刻（大きく） */
 .attendance-index-time {
-    margin: 0; /* いったん0にしてズレを無くす */
+    margin: 0;
     font-size: 56px;
     font-weight: 700;
     letter-spacing: 0.02em;
     color: #000;
 }
 
-/* 退勤メッセージ */
 .attendance-index-message {
-    margin: 32px 0 0; /* 時刻からの距離（Figmaっぽく） */
+    margin: 32px 0 0;
     font-size: 16px;
     font-weight: 700;
     color: #000;
 }
 
-/* ボタン群 */
 .attendance-index-form {
     margin: 0;
 }
@@ -71,7 +61,6 @@
     margin-top: 28px;
 }
 
-/* ボタン共通 */
 .attendance-index-button {
     display: inline-flex;
     align-items: center;
@@ -101,7 +90,6 @@
     opacity: 0.9;
 }
 
-/* タブレット (768-850px) */
 @media (min-width: 768px) and (max-width: 850px) {
     .attendance-index-inner {
         max-width: 740px;
@@ -119,7 +107,6 @@
     }
 }
 
-/* PC (1400-1540px) */
 @media (min-width: 1400px) and (max-width: 1540px) {
     .attendance-index-inner {
         max-width: 820px;

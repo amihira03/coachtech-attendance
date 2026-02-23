@@ -168,6 +168,7 @@ class AdminStaffMonthlyService
         }
 
         return [
+            'workDate' => $cursor->toDateString(),
             'dateLabel' => $cursor->format('m/d') . '(' . $weekdays[$cursor->dayOfWeek] . ')',
             'clockIn' => $clockIn,
             'clockOut' => $clockOut,
