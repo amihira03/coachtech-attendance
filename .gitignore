@@ -3,3 +3,4 @@
 /src/vendor/
 /src/node_modules/
 .DS_Store
+/src/.env.testing
