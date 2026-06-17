@@ -22,12 +22,14 @@
     align-items: center;
     height: 100%;
     line-height: 1;
+    text-decoration: none;
 }
 
-.header-logo img {
-    display: block;
-    height: 28px;
-    width: auto;
+.header-logo-text {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
 }
 
 .header-nav {
@@ -86,9 +88,6 @@
         font-size: 14px;
     }
 
-    .header-logo img {
-        height: 26px;
-    }
 }
 
 @media (min-width: 1400px) and (max-width: 1540px) {

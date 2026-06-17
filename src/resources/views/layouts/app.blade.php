@@ -17,7 +17,7 @@
     <header class="header">
         <div class="header-inner">
             <a class="header-logo" href="{{ route('attendance.index') }}">
-                <img src="{{ asset('images/logo.png') }}" alt="COACHTECH">
+                <span class="header-logo-text">Attendance</span>
             </a>
 
             @auth
