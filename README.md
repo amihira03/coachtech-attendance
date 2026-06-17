@@ -20,6 +20,18 @@
 
 ---
 
+## スクリーンショット
+
+| ログイン画面 | 打刻画面（一般ユーザー） |
+|---|---|
+| ![ログイン画面](./screenshots/login.png) | ![打刻画面](./screenshots/attendance.png) |
+
+| 勤怠一覧（管理者） | 修正申請一覧 |
+|---|---|
+| ![勤怠一覧](./screenshots/admin_attendance_list.png) | ![修正申請一覧](./screenshots/correction_request_list.png) |
+
+---
+
 ## 環境構築
 
 本アプリケーションは Docker を使用して Laravel / MySQL 環境を構築します。
